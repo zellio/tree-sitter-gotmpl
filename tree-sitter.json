@@ -1,0 +1,30 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "metadata": {
+    "version": "0.2.0",
+    "license": "BSD-3-Clause",
+    "description": "Golang text/template parser",
+    "authors": [{"name": "Zachary Elliott"}],
+    "links": {
+      "repository": "https://github.com/zellio/tree-sitter-gotmpl"
+    }
+  },
+  "grammars": [{
+    "name": "gotmpl",
+    "camelcase": "GoTmpl",
+    "title": "Go Template",
+    "scope": "source.gotmpl",
+    "file-types": ["gotmpl", "gotexttmpl", "gohtmltmpl", "yaml"],
+    "class-name": "TreeSitterGotmpl",
+    "context-regex": "{{.+}}"
+  }],
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true,
+    "zig": false
+  }
+}

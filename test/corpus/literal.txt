@@ -1,0 +1,460 @@
+============================================
+boolean literal
+============================================
+{{ true }}
+{{ false }}
+--------------------------------------------
+(source_file
+  (statement
+    (pipeline
+      (argument
+        (boolean))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (boolean)))))
+
+============================================
+string
+============================================
+{{ "interpreted string" }}
+{{ `interpreted string` }}
+--------------------------------------------
+(source_file
+  (statement
+    (pipeline
+      (argument
+        (string))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (string)))))
+
+============================================
+character
+============================================
+{{ 'a' }}
+{{ '\xff' }}
+{{ '\001' }}
+{{ '\u00ff' }}
+{{ '\U123456ff' }}
+{{ '\a' }}
+{{ '\b' }}
+{{ '\f' }}
+{{ '\n' }}
+{{ '\r' }}
+{{ '\t' }}
+{{ '\v' }}
+{{ '\\' }}
+{{ '\"' }}
+--------------------------------------------
+(source_file
+  (statement
+    (pipeline
+      (argument
+        (rune))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (rune))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (rune))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (rune))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (rune))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (rune))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (rune))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (rune))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (rune))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (rune))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (rune))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (rune))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (rune))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (rune)))))
+
+============================================
+integers
+============================================
+{{ 0b01 }}
+{{ 0B0_1 }}
+{{ 0o12673 }}
+{{ 0O2673_4 }}
+{{ 0 }}
+{{ 26_734 }}
+{{ 0xff }}
+{{ 0X23af1 }}
+--------------------------------------------
+(source_file
+  (statement
+    (pipeline
+      (argument
+        (integer))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (integer))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (integer))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (integer))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (integer))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (integer))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (integer))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (integer)))))
+
+============================================
+float
+============================================
+{{ 1. }}
+{{ 1.1 }}
+{{ 1.e7 }}
+{{ 1e7 }}
+{{ .1 }}
+{{ .1e7 }}
+{{ 0xff.abp2 }}
+{{ 0x_ff.abp+2 }}
+{{ 0x_ffp-2 }}
+{{ 0x_ff.abP2 }}
+{{ 0x.abP+2 }}
+{{ 0x_ff.abP-2 }}
+{{ 0X_ff.abP-2 }}
+--------------------------------------------
+(source_file
+  (statement
+    (pipeline
+      (argument
+        (float))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (float))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (float))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (float))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (float))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (float))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (float))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (float))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (float))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (float))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (float))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (float))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (float)))))
+
+============================================
+imaginary
+============================================
+{{ 0i }}
+{{ 1337.34i }}
+--------------------------------------------
+(source_file
+  (statement
+    (pipeline
+      (argument
+        (imaginary))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (imaginary)))))
+
+============================================
+builtin
+============================================
+{{ and "arg1" "arg2" }}
+{{ call "arg1" "arg2" }}
+{{ html "arg1" "arg2" }}
+{{ index "arg1" "arg2" }}
+{{ slice "arg1" "arg2" }}
+{{ js "arg1" "arg2" }}
+{{ len "arg1" "arg2" }}
+{{ not "arg1" "arg2" }}
+{{ or "arg1" "arg2" }}
+{{ printf "arg1" "arg2" }}
+{{ println "arg1" "arg2" }}
+{{ urlquery "arg1" "arg2" }}
+{{ eq "arg1" "arg2" }}
+{{ ne "arg1" "arg2" }}
+{{ lt "arg1" "arg2" }}
+{{ le "arg1" "arg2" }}
+{{ gt "arg1" "arg2" }}
+{{ ge "arg1" "arg2" }}
+--------------------------------------------
+(source_file
+  (statement
+    (pipeline
+      (function_call
+        (builtin)
+        (argument
+          (string))
+        (argument
+          (string)))))
+  (text)
+  (statement
+    (pipeline
+      (function_call
+        (builtin)
+        (argument
+          (string))
+        (argument
+          (string)))))
+  (text)
+  (statement
+    (pipeline
+      (function_call
+        (builtin)
+        (argument
+          (string))
+        (argument
+          (string)))))
+  (text)
+  (statement
+    (pipeline
+      (function_call
+        (builtin)
+        (argument
+          (string))
+        (argument
+          (string)))))
+  (text)
+  (statement
+    (pipeline
+      (function_call
+        (builtin)
+        (argument
+          (string))
+        (argument
+          (string)))))
+  (text)
+  (statement
+    (pipeline
+      (function_call
+        (builtin)
+        (argument
+          (string))
+        (argument
+          (string)))))
+  (text)
+  (statement
+    (pipeline
+      (function_call
+        (builtin)
+        (argument
+          (string))
+        (argument
+          (string)))))
+  (text)
+  (statement
+    (pipeline
+      (function_call
+        (builtin)
+        (argument
+          (string))
+        (argument
+          (string)))))
+  (text)
+  (statement
+    (pipeline
+      (function_call
+        (builtin)
+        (argument
+          (string))
+        (argument
+          (string)))))
+  (text)
+  (statement
+    (pipeline
+      (function_call
+        (builtin)
+        (argument
+          (string))
+        (argument
+          (string)))))
+  (text)
+  (statement
+    (pipeline
+      (function_call
+        (builtin)
+        (argument
+          (string))
+        (argument
+          (string)))))
+  (text)
+  (statement
+    (pipeline
+      (function_call
+        (builtin)
+        (argument
+          (string))
+        (argument
+          (string)))))
+  (text)
+  (statement
+    (pipeline
+      (function_call
+        (builtin)
+        (argument
+          (string))
+        (argument
+          (string)))))
+  (text)
+  (statement
+    (pipeline
+      (function_call
+        (builtin)
+        (argument
+          (string))
+        (argument
+          (string)))))
+  (text)
+  (statement
+    (pipeline
+      (function_call
+        (builtin)
+        (argument
+          (string))
+        (argument
+          (string)))))
+  (text)
+  (statement
+    (pipeline
+      (function_call
+        (builtin)
+        (argument
+          (string))
+        (argument
+          (string)))))
+  (text)
+  (statement
+    (pipeline
+      (function_call
+        (builtin)
+        (argument
+          (string))
+        (argument
+          (string)))))
+  (text)
+  (statement
+    (pipeline
+      (function_call
+        (builtin)
+        (argument
+          (string))
+        (argument
+          (string))))))

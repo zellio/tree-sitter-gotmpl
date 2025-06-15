@@ -1,0 +1,211 @@
+============================================
+A string constant.
+============================================
+{{"\"output\""}}
+--------------------------------------------
+(source_file
+  (statement
+    (pipeline
+      (argument
+        (string
+          (escape_sequence)
+          (escape_sequence))))))
+
+============================================
+A raw string constant.
+============================================
+{{`"output"`}}
+--------------------------------------------
+(source_file
+  (statement
+    (pipeline
+      (argument
+        (string)))))
+
+============================================
+A function call.
+============================================
+{{printf "%q" "output"}}
+--------------------------------------------
+(source_file
+  (statement
+    (pipeline
+     (function_call
+       (builtin)
+       (argument
+         (string))
+       (argument
+         (string))))))
+
+============================================
+A function call whose final argument comes from the previous command.
+============================================
+{{"output" | printf "%q"}}
+--------------------------------------------
+(source_file
+  (statement
+    (pipeline
+      (argument
+        (string))
+      (function_call
+        (builtin)
+        (argument
+          (string))))))
+
+============================================
+A parenthesized argument.
+============================================
+{{printf "%q" (print "out" "put")}}
+--------------------------------------------
+(source_file
+  (statement
+    (pipeline
+      (function_call
+        (builtin)
+        (argument
+          (string))
+        (argument
+          (parenthesized
+            (pipeline
+              (function_call
+                (identifier)
+                (argument
+                  (string))
+                (argument
+                  (string))))))))))
+
+============================================
+A more elaborate call.
+============================================
+{{"put" | printf "%s%s" "out" | printf "%q"}}
+--------------------------------------------
+(source_file
+  (statement
+    (pipeline
+      (argument
+        (string))
+      (function_call
+        (builtin)
+        (argument
+          (string))
+        (argument
+          (string)))
+      (function_call
+        (builtin)
+        (argument
+          (string))))))
+
+============================================
+A longer chain.
+============================================
+{{"output" | printf "%s" | printf "%q"}}
+--------------------------------------------
+(source_file
+  (statement
+    (pipeline
+      (argument
+        (string))
+      (function_call
+        (builtin)
+        (argument
+          (string)))
+      (function_call
+        (builtin)
+        (argument
+          (string))))))
+
+============================================
+A with action using dot.
+============================================
+{{with "output"}}{{printf "%q" .}}{{end}}
+--------------------------------------------
+(source_file
+  (with_action
+    (statement
+      (pipeline
+        (argument
+          (string))))
+    (statement
+      (pipeline
+        (function_call
+          (builtin)
+          (argument
+            (string))
+          (argument
+            (dot)))))
+    (statement)))
+
+============================================
+A with action that creates and uses a variable.
+============================================
+{{with $x := "output" | printf "%q"}}{{$x}}{{end}}
+--------------------------------------------
+(source_file
+  (with_action
+    (statement
+      (assignment
+        (variable
+          (identifier))
+        (pipeline
+          (argument
+            (string))
+          (function_call
+            (builtin)
+            (argument
+              (string))))))
+    (statement
+      (pipeline
+        (argument
+          (variable
+            (identifier)))))
+    (statement)))
+
+============================================
+A with action that uses the variable in another action.
+============================================
+{{with $x := "output"}}{{printf "%q" $x}}{{end}}
+--------------------------------------------
+(source_file
+  (with_action
+    (statement
+      (assignment
+        (variable
+          (identifier))
+        (pipeline
+          (argument
+            (string)))))
+    (statement
+      (pipeline
+        (function_call
+          (builtin)
+          (argument
+            (string))
+          (argument
+            (variable
+              (identifier))))))
+    (statement)))
+
+============================================
+The same, but with pipeline.
+============================================
+{{with $x := "output"}}{{$x | printf "%q"}}{{end}}
+--------------------------------------------
+(source_file
+  (with_action
+    (statement
+      (assignment
+        (variable
+          (identifier))
+        (pipeline
+          (argument
+            (string)))))
+    (statement
+      (pipeline
+        (argument
+          (variable
+            (identifier)))
+        (function_call
+          (builtin)
+          (argument
+            (string)))))
+    (statement)))

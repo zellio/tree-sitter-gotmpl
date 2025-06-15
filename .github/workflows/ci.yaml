@@ -1,0 +1,55 @@
+---
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: ${{github.workflow}}-${{github.ref}}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint Javascript
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install Biome
+        run: npm install --save-dev --save-exact @biomejs/biome
+      - name: Lint
+        run: npx @biomejs/biome lint .
+  test:
+    name: Test parser
+    runs-on: ${{matrix.os}}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-15]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up tree-sitter-cli
+        uses: tree-sitter/setup-action/cli@v2
+      - name: Generate parser
+        run: tree-sitter generate
+      - name: Test parser
+        run: tree-sitter test
+
+      # - name: Run tests
+      #   uses: tree-sitter/parser-test-action@v2
+      #   with:
+      #     test-rust: true
+      #     test-node: true
+      #     test-python: true
+      #     test-go: true
+      #     test-swift: true
+      # - name: Parse examples
+      #   uses: tree-sitter/parse-action@v4
+      #   with:
+      #     files: examples/*

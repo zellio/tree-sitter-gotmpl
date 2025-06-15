@@ -1,0 +1,353 @@
+============================================
+valid comments
+============================================
+{{/* comment */}}
+{{- /* comment */}}
+{{/* comment */ -}}
+{{- /* comment */ -}}
+
+{{/* multi
+line
+comment */}}
+{{- /* multi
+line
+comment */}}
+{{/* multi
+line
+comment */ -}}
+{{- /* multi
+line
+comment */ -}}
+---
+(source_file
+  (statement
+    (comment))
+  (text)
+  (statement
+    (comment))
+  (text)
+  (statement
+    (comment))
+  (text)
+  (statement
+    (comment))
+  (text)
+  (statement
+    (comment))
+  (text)
+  (statement
+    (comment))
+  (text)
+  (statement
+    (comment))
+  (text)
+  (statement
+    (comment)))
+
+============================================
+invalid comments
+============================================
+{{ /* comment */}}
+{{/* comment */ }}
+{{-/* comment */ -}}
+{{- /* comment */-}}
+--------------------------------------------
+(source_file
+  (statement
+    (ERROR
+      (UNEXPECTED '*'))
+    (pipeline
+      (function_call
+        (identifier)))
+    (ERROR
+      (UNEXPECTED '*')))
+  (text)
+  (statement
+    (ERROR
+      (comment)
+      (UNEXPECTED '-'))
+    (comment))
+  (text)
+  (ERROR
+    (comment)
+    (UNEXPECTED '-')))
+
+============================================
+invalid multi line comments
+============================================
+{{-
+/* comment */ -}}
+{{- /* comment */
+-}}
+--------------------------------------------
+(source_file
+  (statement
+    (ERROR
+      (UNEXPECTED '-')
+      (UNEXPECTED '*'))
+    (pipeline
+      (function_call
+        (identifier)))
+    (ERROR
+      (UNEXPECTED '*')))
+  (text)
+  (ERROR
+    (comment)
+    (UNEXPECTED '-')))
+
+============================================
+pipeline
+============================================
+{{ pipeline }}
+{{ chained | pipeline | func }}
+--------------------------------------------
+(source_file
+  (statement
+    (pipeline
+      (function_call
+        (identifier))))
+  (text)
+  (statement
+    (pipeline
+      (function_call
+        (identifier))
+      (function_call
+        (identifier))
+      (function_call
+        (identifier)))))
+
+============================================
+if
+============================================
+{{ if pipeline }} T1 {{ end }}
+{{ if pipeline }} T1 {{ else }} T2 {{ end }}
+{{ if pipeline }} T1 {{ else if pipeline }} T2 {{ end }}
+{{ if pipeline }} T1 {{ else if pipeline }} T2 {{ else }} T3 {{ end }}
+{{ if pipeline }} T1 {{ else if pipeline }} T2 {{ else if pipeline }} T3 {{ else }} T4 {{ end }}
+--------------------------------------------
+(source_file
+  (if_action
+    (statement
+      (pipeline
+        (function_call
+          (identifier))))
+    (text)
+    (statement))
+ (text)
+ (if_action
+   (statement
+     (pipeline
+       (function_call
+         (identifier))))
+    (text)
+    (statement)
+    (text)
+    (statement))
+  (text)
+  (if_action
+    (statement
+      (pipeline
+        (function_call
+          (identifier))))
+    (text)
+    (statement
+      (pipeline
+        (function_call
+          (identifier))))
+    (text)
+    (statement))
+  (text)
+  (if_action
+    (statement
+      (pipeline
+        (function_call
+          (identifier))))
+    (text)
+    (statement
+      (pipeline
+        (function_call
+          (identifier))))
+    (text)
+    (statement)
+    (text)
+    (statement))
+  (text)
+  (if_action
+    (statement
+      (pipeline
+        (function_call
+          (identifier))))
+    (text)
+    (statement
+      (pipeline
+        (function_call
+          (identifier))))
+    (text)
+    (statement
+      (pipeline
+        (function_call
+          (identifier))))
+    (text)
+    (statement)
+    (text)
+    (statement)))
+
+============================================
+range
+============================================
+{{ range pipeline }} T1 {{ end }}
+{{ range $variable := `value` }} T1 {{ end }}
+--------------------------------------------
+(source_file
+  (range_action
+    (statement
+      (pipeline
+        (function_call
+          (identifier))))
+    (text)
+    (statement))
+  (text)
+  (range_action
+    (statement
+      (assignment
+        (variable
+          (identifier))
+        (pipeline
+          (argument
+            (string)))))
+    (text)
+    (statement)))
+
+
+============================================
+break
+============================================
+{{ break }}
+--------------------------------------------
+(source_file
+  (statement))
+
+============================================
+continue
+============================================
+{{ continue }}
+--------------------------------------------
+(source_file
+  (statement))
+
+============================================
+template
+============================================
+{{ template "name" }}
+{{ template "name" pipeline }}
+--------------------------------------------
+(source_file
+  (statement
+    (string))
+  (text)
+  (statement
+    (string)
+    (pipeline
+      (function_call
+        (identifier)))))
+
+============================================
+block
+============================================
+{{ block "name" pipeline }} T1 {{ end }}
+--------------------------------------------
+(source_file
+  (block_action
+    (statement
+      (string)
+      (pipeline
+        (function_call
+          (identifier))))
+    (text)
+    (statement)))
+
+============================================
+define
+============================================
+{{ define "name" }} T1 {{ end }}
+--------------------------------------------
+(source_file
+  (define_action
+    (statement
+      (string))
+    (text)
+    (statement)))
+
+============================================
+with
+============================================
+{{ with pipeline }} T1 {{ end }}
+{{ with pipeline }} T1 {{ else }} T2 {{ end }}
+{{ with pipeline }} T1 {{ else with pipeline }} T2 {{ end }}
+{{ with pipeline }} T1 {{ else with pipeline }} T2 {{ else }} T3 {{ end }}
+{{ with pipeline }} T1 {{ else with pipeline }} T2 {{ else with pipeline }} T3 {{ end }}
+--------------------------------------------
+(source_file
+  (with_action
+    (statement
+      (pipeline
+        (function_call
+          (identifier))))
+    (text)
+    (statement))
+  (text)
+  (with_action
+    (statement
+      (pipeline
+        (function_call
+          (identifier))))
+    (text)
+    (statement)
+    (text)
+    (statement))
+  (text)
+  (with_action
+    (statement
+      (pipeline
+        (function_call
+          (identifier))))
+    (text)
+    (statement
+      (pipeline
+        (function_call
+          (identifier))))
+    (text)
+    (statement))
+  (text)
+  (with_action
+    (statement
+      (pipeline
+        (function_call
+          (identifier))))
+    (text)
+    (statement
+      (pipeline
+        (function_call
+          (identifier))))
+    (text)
+    (statement)
+    (text)
+    (statement))
+  (text)
+  (with_action
+    (statement
+      (pipeline
+        (function_call
+          (identifier))))
+    (text)
+    (statement
+      (pipeline
+        (function_call
+          (identifier))))
+    (text)
+    (statement
+      (pipeline
+        (function_call
+          (identifier))))
+    (text)
+    (statement)))

@@ -1,0 +1,118 @@
+============================================
+nil
+============================================
+{{ nil }}
+--------------------------------------------
+(source_file
+  (statement
+    (pipeline
+      (argument
+        (nil)))))
+
+============================================
+dot
+============================================
+{{ . }}
+--------------------------------------------
+(source_file
+  (statement
+    (pipeline
+      (argument
+        (dot)))))
+
+============================================
+variable
+============================================
+{{ $ }}
+{{ $variable }}
+--------------------------------------------
+(source_file
+  (statement
+    (pipeline
+      (argument
+        (variable
+          (identifier)))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (variable
+          (identifier))))))
+
+============================================
+selector
+============================================
+{{ .Field }}
+{{ .key }}
+{{ .Field.key.key.Field }}
+{{ $.key }}
+{{ $variable.Field.key }}
+--------------------------------------------
+(source_file
+  (statement
+    (pipeline
+      (argument
+        (field
+          (identifier)))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (key
+          (identifier)))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (selector_expression
+          (selector_expression
+            (selector_expression
+              (field
+                (identifier))
+              (key
+                (identifier)))
+             (key
+               (identifier)))
+           (field
+             (identifier))))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (selector_expression
+          (variable
+            (identifier))
+          (key
+            (identifier))))))
+  (text)
+  (statement
+    (pipeline
+      (argument
+        (selector_expression
+          (selector_expression
+            (variable
+              (identifier))
+            (field
+              (identifier)))
+          (key
+            (identifier)))))))
+
+============================================
+parenthesized
+============================================
+{{ func (foo 2 3) }}
+--------------------------------------------
+(source_file
+  (statement
+    (pipeline
+      (function_call
+        (identifier)
+        (argument
+          (parenthesized
+            (pipeline
+              (function_call
+                (identifier)
+                  (argument
+                    (integer))
+                  (argument
+                    (integer))))))))))

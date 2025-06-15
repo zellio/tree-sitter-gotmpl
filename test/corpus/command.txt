@@ -1,0 +1,48 @@
+============================================
+method_call
+============================================
+{{ .Method "arg1" "arg2" }}
+{{ $.key.Field.Method .Arg1 "arg2" }}
+--------------------------------------------
+(source_file
+  (statement
+    (pipeline
+      (method_call
+        (field
+          (identifier))
+        (argument
+          (string))
+        (argument
+          (string)))))
+  (text)
+  (statement
+    (pipeline
+      (method_call
+        (selector_expression
+          (selector_expression
+            (selector_expression
+              (variable
+                (identifier))
+              (key
+                (identifier)))
+            (field
+              (identifier)))
+          (field
+            (identifier)))
+        (argument
+          (field
+            (identifier)))
+        (argument
+          (string))))))
+
+
+============================================
+function_call
+============================================
+{{ func }}
+--------------------------------------------
+(source_file
+  (statement
+    (pipeline
+      (function_call
+        (identifier)))))
